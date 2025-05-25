@@ -1,4 +1,5 @@
-import './App.css'; // Keep this if you plan to use App.css for some global styles
+// src/App.jsx
+import './App.css';
 
 function App() {
   return (
