@@ -2,27 +2,41 @@
 
 /**
  * Converts a time string (HH:MM:SS.s or MM:SS.s) to total minutes.
+ * Uses a regular expression for robust validation.
  * @param {string} timeStr - The time string to parse.
  * @returns {number} Total minutes, or NaN if parsing fails.
  */
 export function timeStringToMinutes(timeStr) {
     if (!timeStr || typeof timeStr !== 'string') return NaN;
-    const parts = timeStr.split(':');
-    let totalMinutes = 0;
+
+    const trimmedStr = timeStr.trim();
+
+    // Regex to validate HH:MM:SS.ms or MM:SS.ms format
+    // It allows for one or two digits for H/M/S and optional milliseconds.
+    const timeRegex = /^(?:(\d{1,2}):)?(\d{1,2}):(\d{1,2}(?:\.\d+)?)$/;
+
+    const match = trimmedStr.match(timeRegex);
+
+    if (!match) {
+        return NaN; // The string does not match the expected format
+    }
+
     try {
-        if (parts.length === 3) { // HH:MM:SS.s
-            totalMinutes += parseInt(parts[0], 10) * 60; // hours to minutes
-            totalMinutes += parseInt(parts[1], 10);      // minutes
-            totalMinutes += parseFloat(parts[2]) / 60; // seconds to minutes
-        } else if (parts.length === 2) { // MM:SS.s
-            totalMinutes += parseInt(parts[0], 10);      // minutes
-            totalMinutes += parseFloat(parts[1]) / 60; // seconds to minutes
-        } else {
-            return NaN; // Invalid format
+        // match[1] is optional (hours), match[2] is minutes, match[3] is seconds
+        const hours = match[1] ? parseFloat(match[1]) : 0;
+        const minutes = parseFloat(match[2]);
+        const seconds = parseFloat(match[3]);
+
+        if (isNaN(hours) || isNaN(minutes) || isNaN(seconds)) {
+            // This check is a safeguard, but regex should prevent non-numeric parts
+            return NaN;
         }
+
+        const totalMinutes = (hours * 60) + minutes + (seconds / 60);
         return totalMinutes;
+
     } catch (e) {
-        console.error("Error parsing time string:", timeStr, e);
+        console.error("Error calculating total minutes from time string:", timeStr, e);
         return NaN;
     }
 }

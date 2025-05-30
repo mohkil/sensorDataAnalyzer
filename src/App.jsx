@@ -1,10 +1,9 @@
 // src/App.jsx
 import './App.css';
-import { useAppContext } from './contexts/AppContext';
-// We'll create these view components soon
-// import UploadConfigureView from './views/UploadConfigureView';
-// import ProcessingView from './views/ProcessingView';
-// import ResultsView from './views/ResultsView';
+import { useAppContext } from './contexts/AppContext.jsx';
+import UploadConfigureView from './views/UploadConfigureView.jsx';
+import ProcessingView from './views/ProcessingView.jsx';
+import ResultsView from './views/ResultsView.jsx'; // Import the new view
 
 function App() {
   const { currentStep } = useAppContext();
@@ -12,33 +11,30 @@ function App() {
   const renderStep = () => {
     switch (currentStep) {
       case 'upload_config':
-        // return <UploadConfigureView />;
-        return <div>Step 1: Upload & Configure (To be built)</div>;
+        return <UploadConfigureView />;
       case 'processing':
-        // return <ProcessingView />;
-        return <div>Step 2: Processing (To be built)</div>;
+        return <ProcessingView />;
       case 'results':
-        // return <ResultsView />;
-        return <div>Step 3: Results (To be built)</div>;
+        return <ResultsView />; // Render the actual view
       default:
-        return <div>Unknown step</div>;
+        return <div>Unknown step: {currentStep}</div>; // Show currentStep if unknown
     }
   };
 
-  return (
-    <div className="AppContainer"> {/* Changed class name for clarity */}
-      <header className="AppHeader">
-        <h1>Sensor Data Analysis v3.0</h1>
-        {/* 'About' button can be added here later */}
-      </header>
-      <main className="AppMainContent">
-        {renderStep()}
-      </main>
-      <footer className="AppFooter">
-        <p>For inquiries, contact M Kilani (m.kilani@unsw.edu.au)</p> {/* From original about-info */}
-      </footer>
-    </div>
-  );
+  // ... (rest of App.jsx as before) ...
+    return (
+        <div className="AppContainer">
+          <header className="AppHeader">
+            <h1>Sensor Data Analysis v3.0</h1>
+          </header>
+          <main className="AppMainContent">
+            {renderStep()}
+          </main>
+          <footer className="AppFooter">
+            <p>For inquiries, contact M Kilani (m.kilani@unsw.edu.au)</p>
+          </footer>
+        </div>
+    );
 }
 
 export default App;

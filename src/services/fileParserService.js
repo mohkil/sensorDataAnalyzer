@@ -240,3 +240,43 @@ export function parseSpectroscopyFile(fileObject, effectiveName) {
         reader.readAsText(fileObject);
     });
 }
+
+
+/**
+ * Detects analysis type ('spectroscopy' or 'time_series') by reading file content.
+ * @param {File} file - The file to inspect.
+ * @returns {Promise<string|null>} A promise that resolves with the detected type or null.
+ */
+export function detectAnalysisTypeFromFile(file) { // Renamed to avoid conflict if we need a broader one later
+    return new Promise((resolve, reject) => {
+        if (!file) {
+            resolve(null);
+            return;
+        }
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            try {
+                const fileString = event.target.result;
+                const lines = fileString.split(/\r\n|\n/).slice(0, 20); // Read first 20 lines
+                for (const line of lines) {
+                    const lowerLine = line.toLowerCase();
+                    if (lowerLine.includes('frequency (hz)') &&
+                        (lowerLine.includes('z') || lowerLine.includes('impedance')) &&
+                        lowerLine.includes('angle')) {
+                        resolve('spectroscopy');
+                        return;
+                    }
+                }
+                resolve('time_series'); // Default if spectroscopy markers not found
+            } catch (e) {
+                console.error("Error during file content read for type detection:", e);
+                reject(new Error("Could not read file for type detection."));
+            }
+        };
+        reader.onerror = (e) => {
+            console.error("FileReader error for type detection:", e);
+            reject(new Error("FileReader error during type detection."));
+        };
+        reader.readAsText(file);
+    });
+}

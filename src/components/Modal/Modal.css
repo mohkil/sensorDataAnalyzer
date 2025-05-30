@@ -1,0 +1,76 @@
+/* src/components/Modal/Modal.css */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Ensure it's on top */
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 20px 25px; /* Slightly adjusted */
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Slightly adjusted */
+    text-align: center;
+    min-width: 320px; /* Ensure a minimum width */
+    max-width: 500px;
+    position: relative; /* For positioning the close button if needed */
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.modal-title {
+    margin: 0;
+    font-size: 1.4em; /* Increased size */
+    color: #0056b3; /* Using a theme color */
+}
+
+.modal-close-button {
+    background: none;
+    border: none;
+    font-size: 1.8em; /* Increased size */
+    font-weight: bold; /* Make it bolder */
+    color: #888;
+    cursor: pointer;
+    padding: 0 5px; /* Add some padding for easier clicking */
+    line-height: 1; /* Ensure it aligns well */
+}
+.modal-close-button:hover {
+    color: #333;
+}
+
+.modal-body {
+    /* Styles for modal body content can be added here if needed,
+       but often direct styling of children is enough. */
+    text-align: left; /* Align paragraph text to left */
+    font-size: 0.95em;
+    color: #333;
+}
+
+.modal-body p { /* Specific styling for paragraphs inside modal */
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.modal-body .modal-buttons { /* Container for buttons if needed */
+    text-align: center; /* Center buttons */
+    margin-top: 20px;
+}
+
+.modal-body .modal-buttons button {
+    margin: 5px 10px; /* Spacing for buttons */
+    min-width: 120px; /* Ensure buttons have a decent width */
+}

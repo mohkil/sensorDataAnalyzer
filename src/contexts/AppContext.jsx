@@ -25,11 +25,21 @@ export const AppProvider = ({ children }) => {
     const [processingLog, setProcessingLog] = useState([]); // Array of log messages/objects
     const [progressBarValue, setProgressBarValue] = useState(0);
     const [isProcessing, setIsProcessing] = useState(false);
+    const [processingStatusMessage, setProcessingStatusMessage] = useState(''); // For overall status like "Processing complete!"
+    const [processingSuccess, setProcessingSuccess] = useState(null); // true for success, false for error, null for idle
+    
 
     // Placeholder for processed data - structure will depend on analysis type
     const [timeSeriesData, setTimeSeriesData] = useState([]); // Will hold data like original sensorDataTables
     const [spectroscopyData, setSpectroscopyData] = useState([]); // Will hold data like original spectroscopyDataCollections
     const [gasConcProfile, setGasConcProfile] = useState([]); // For the calculated gas concentration profile
+
+    const [showAnalysisTypeModal, setShowAnalysisTypeModal] = useState(false); // New state
+    const [analysisTypeModalMessage, setAnalysisTypeModalMessage] = useState(''); // New state
+    const [step1Status, setStep1Status] = useState({ message: 'Please select data files and configure parameters to begin.', type: 'info' }); // New state for Step 1 status message
+    const [plotTimeRange, setPlotTimeRange] = useState({ start: '', end: '' });
+    const [isExporting, setIsExporting] = useState(false); 
+
 
     // Function to update config values
     const updateConfig = (newConfigValues) => {
@@ -60,10 +70,17 @@ export const AppProvider = ({ children }) => {
         setProcessingLog([]);
         setProgressBarValue(0);
         setIsProcessing(false);
+        setProcessingStatusMessage('');
+        setProcessingSuccess(null);
         setTimeSeriesData([]);
         setSpectroscopyData([]);
         setGasConcProfile([]);
+        setShowAnalysisTypeModal(false);
+        setAnalysisTypeModalMessage('');
+        setStep1Status({ message: 'Please select data files and configure parameters to begin.', type: 'info' });
         addLogMessage("Application reset. Please select files and configure parameters.");
+        setPlotTimeRange({ start: '', end: '' }); 
+        setIsExporting(false);
     };
 
 
@@ -77,9 +94,16 @@ export const AppProvider = ({ children }) => {
         processingLog, addLogMessage, setProcessingLog,
         progressBarValue, setProgressBarValue,
         isProcessing, setIsProcessing,
+        processingStatusMessage, setProcessingStatusMessage,
+        processingSuccess, setProcessingSuccess,
         timeSeriesData, setTimeSeriesData,
         spectroscopyData, setSpectroscopyData,
         gasConcProfile, setGasConcProfile,
+        showAnalysisTypeModal, setShowAnalysisTypeModal,
+        analysisTypeModalMessage, setAnalysisTypeModalMessage,
+        step1Status, setStep1Status,
+        plotTimeRange, setPlotTimeRange,
+        isExporting, setIsExporting,
         resetAppState
     };
 

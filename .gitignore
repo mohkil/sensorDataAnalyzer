@@ -11,6 +11,8 @@ node_modules
 dist
 dist-ssr
 *.local
+gemini_chat_log
+last prompt.txt
 
 # Editor directories and files
 .vscode/*

@@ -1,0 +1,118 @@
+/* src/views/ResultsView.css */
+.results-view .action-buttons-group {
+    margin-bottom: 20px;
+    padding: 10px 0;
+    text-align: left;
+    border-bottom: 1px solid #eee; /* Added separator */
+}
+
+.results-view .action-buttons-group button {
+    margin-right: 10px;
+    margin-bottom: 10px; /* For wrapping */
+}
+
+.results-view #new-analysis-btn {
+    background-color: #28a745; /* Green */
+}
+.results-view #new-analysis-btn:hover {
+    background-color: #218838;
+}
+/* Placeholder styles for other export buttons can be added if desired */
+.results-view #export-xlsx-btn { background-color: #17a2b8; } /* Info */
+.results-view #export-xlsx-btn:hover { background-color: #138496; }
+.results-view #export-csv-btn { background-color: #6c757d; } /* Secondary */
+.results-view #export-csv-btn:hover { background-color: #5a6268; }
+.results-view #export-plots-btn { background-color: #fd7e14; } /* Orange */
+.results-view #export-plots-btn:hover { background-color: #e6690b; }
+
+
+.results-view .plot-range-controls,
+.results-view .frequency-slice-selector-container {
+    margin-bottom: 15px;
+    padding: 10px 15px; /* Increased padding */
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    background-color: #f9f9f9;
+    display: flex; /* For alignment */
+    align-items: center;
+    flex-wrap: wrap; /* Allow wrapping */
+    gap: 10px; /* Spacing between items */
+}
+
+.results-view .plot-range-controls label,
+.results-view .frequency-slice-selector-container label {
+    margin-right: 5px;
+    font-weight: normal;
+   /* display: inline; */ /* Flex handles display */
+   /* min-width: auto; */
+}
+
+.results-view .plot-range-controls input[type="number"] {
+    width: 100px;
+    padding: 8px; /* Increased padding */
+   /* margin-right: 15px; */ /* Gap handles spacing */
+   /* margin-bottom:0; */
+   /* display:inline; */
+}
+.results-view .frequency-slice-selector-container input[type="range"] {
+    flex-grow: 1; /* Allow slider to take space */
+    min-width: 150px;
+    margin-right: 10px;
+}
+.results-view .frequency-slice-selector-container span {
+    font-weight: bold;
+    min-width: 100px;
+}
+
+
+.results-view .tab-navigation {
+    margin-bottom: 0; /* Tabs will connect to content */
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 0; /* Removed padding as buttons have their own */
+    display: flex; /* Align buttons in a row */
+}
+
+.results-view .tab-navigation button.tab-button {
+    margin-right: 5px; /* Spacing between tab buttons */
+    margin-bottom: -2px; /* Overlap with border-bottom of container for active tab effect */
+    background-color: #e9ecef;
+    border: 1px solid #dee2e6;
+    border-bottom: none; /* Remove bottom border for inactive tabs */
+    color: #495057;
+    padding: 10px 15px;
+    font-weight: 500;
+    border-radius: 5px 5px 0 0;
+    position: relative; /* For z-index if needed */
+    z-index: 1;
+}
+.results-view .tab-navigation button.tab-button:hover {
+    background-color: #f8f9fa;
+}
+
+.results-view .tab-navigation button.tab-button.active {
+    background-color: #fff; /* Active tab matches content background */
+    color: #007bff; /* Active tab text color */
+    font-weight: bold;
+    border-color: #007bff #007bff #fff; /* Border to merge with content area */
+    border-bottom: 2px solid #fff; /* Crucial for "connected" look */
+    z-index: 2; /* Ensure active tab is on top */
+}
+
+.results-view .tab-content {
+    border: 1px solid #007bff; /* Match active tab border */
+    border-top: none; /* Remove top border as tabs handle it */
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 0 0 8px 8px;
+    min-height: 300px; /* Ensure some space for content */
+}
+
+/* Grid for charts (from original App.css if not already global) */
+.charts-grid {
+    display: grid;
+    gap: 25px;
+    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+}
+.spectroscopy-plot-area { /* For 3D plot area */
+    /* Styles for this can be more specific if needed */
+}
